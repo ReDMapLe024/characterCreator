@@ -1,0 +1,110 @@
+package com.example.phifilli.charactercreator;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
+public class MainActivity extends AppCompatActivity {
+
+    private Spinner race_spinner;
+    private Spinner class_spinner;
+
+    private Button str_minus_btn;
+    private Button str_plus_btn;
+    private Button dex_minus_btn;
+    private Button dex_plus_btn;
+    private Button con_minus_btn;
+    private Button con_plus_btn;
+    private Button int_minus_btn;
+    private Button int_plus_btn;
+    private Button wsd_minus_btn;
+    private Button wsd_plus_btn;
+    private Button chr_minus_btn;
+    private Button chr_plus_btn;
+
+    private TextView strength_tv;
+    private TextView dexterity_tv;
+    private TextView constitution_tv;
+    private TextView intelligence_tv;
+    private TextView wisdom_tv;
+    private TextView charisma_tv;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        race_spinner = (Spinner) findViewById(R.id.race_spinner);
+        class_spinner = (Spinner) findViewById(R.id.class_spinner);
+
+        str_minus_btn = (Button) findViewById(R.id.minus);
+        str_plus_btn = (Button) findViewById(R.id.add);
+        dex_minus_btn = (Button) findViewById(R.id.dexterity_minus);
+        dex_plus_btn = (Button) findViewById(R.id.dexterity_plus);
+        con_minus_btn = (Button) findViewById(R.id.constitution_minus);
+        con_plus_btn = (Button) findViewById(R.id.constitution_plus);
+        int_minus_btn = (Button) findViewById(R.id.intelligence_minus);
+        int_plus_btn = (Button) findViewById(R.id.intelligence_plus);
+        wsd_minus_btn = (Button) findViewById(R.id.wisdom_minus);
+        wsd_plus_btn = (Button) findViewById(R.id.wisdom_plus);
+        chr_minus_btn = (Button) findViewById(R.id.charisma_minus);
+        chr_plus_btn = (Button) findViewById(R.id.charisma_plus);
+
+        strength_tv = (TextView) findViewById(R.id.strength_score);
+        dexterity_tv = (TextView) findViewById(R.id.dexterity_score);
+        constitution_tv = (TextView) findViewById(R.id.constitution_score);
+        intelligence_tv = (TextView) findViewById(R.id.intelligence_score);
+        wisdom_tv = (TextView) findViewById(R.id.wisdom_score);
+        charisma_tv = (TextView) findViewById(R.id.charisma_score);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.races_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> class_adapter = ArrayAdapter.createFromResource(this, R.array.class_array, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        class_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        race_spinner.setAdapter(adapter);
+        class_spinner.setAdapter(class_adapter);
+    }
+
+    public void onClick(View v){
+
+        if(v.getId() == str_minus_btn.getId()){
+            int currentScore =  Integer.parseInt(strength_tv.getText().toString());
+            currentScore--;
+            if(currentScore >= 0) {
+                strength_tv.setText(String.valueOf(currentScore));
+            }else{
+                Toast.makeText(this, "Ability score cannot be negative.", Toast.LENGTH_SHORT).show();
+            }
+        }if(v.getId() == str_plus_btn.getId()){
+            int currentScore =  Integer.parseInt(strength_tv.getText().toString());
+            currentScore++;
+            strength_tv.setText(String.valueOf(currentScore));
+        }if(v.getId() == dex_minus_btn.getId()){
+            int currentScore = Integer.parseInt(dexterity_tv.getText().toString());
+            currentScore--;
+            if(currentScore >= 0) {
+                dexterity_tv.setText(String.valueOf(currentScore));
+            }else{
+                Toast.makeText(this, "Ability score cannot be negative.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if(v.getId() == dex_plus_btn.getId()){
+            int currentScore = Integer.parseInt(dexterity_tv.getText().toString());
+            currentScore++;
+            dexterity_tv.setText(String.valueOf(currentScore));
+        }
+
+
+    }
+
+
+}
